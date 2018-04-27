@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <div v-if="showNav" id="nav">
+    <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <a class="button is-primary" @click="toggleNav()">Primary</a>
+    <a class="button is-primary" @click="toggleModal()">Show Modal</a>
+    <modal v-if="showModal" @close="toggleModal()"></modal>
     <router-view/>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import Modal from '@/components/Modal.vue';
 
-  @Component
+  @Component({components: {
+    Modal,
+  }})
   export default class App extends Vue {
-    public showNav: boolean = true;
-    public toggleNav() {
-      this.showNav = !this.showNav;
+    public showModal: boolean = false;
+    public toggleModal() {
+      this.showModal = !this.showModal;
     }
   }
 </script>
